@@ -2,11 +2,13 @@ import React from 'react';
 import { Categories } from './components/Categories/Categories';
 import { Header } from './components/Header/Header';
 import { PizzaBlock } from './components/PizzaBlock/PizzaBlock';
+import { Skeleton } from './components/PizzaBlock/Skeleton';
 import { Sort } from './components/Sort/Sort';
 import './scss/app.scss';
 
 function App() {
     const [items, setItems] = React.useState([]);
+    const [isLoading, setIsLoading] = React.useState(true);
 
     React.useEffect(() => {
         fetch('https://62921194cd0c91932b6ccbee.mockapi.io/items')
@@ -15,6 +17,7 @@ function App() {
             })
             .then((json) => {
                 setItems(json);
+                setIsLoading(false);
             });
     }, []);
 
@@ -31,7 +34,21 @@ function App() {
                         </div>
                         <h2 className="content__title">Все пиццы</h2>
                         <div className="content__items">
-                            {items.map((el) => {
+                            {isLoading
+                                ? [...new Array(6)].map((_, index) => <Skeleton key={index} />)
+                                : items.map((el) => (
+                                      <PizzaBlock
+                                          title={el.title}
+                                          price={el.price}
+                                          imageUrl={el.imageUrl}
+                                          types={el.types}
+                                          sizes={el.sizes}
+                                          category={el.category}
+                                          rating={el.rating}
+                                          key={el.id}
+                                      />
+                                  ))}
+                            {/* {items.map((el) => {
                                 return (
                                     <PizzaBlock
                                         title={el.title}
@@ -44,7 +61,7 @@ function App() {
                                         key={el.id}
                                     />
                                 );
-                            })}
+                            })} */}
                         </div>
                     </div>
                 </div>
