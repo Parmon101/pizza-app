@@ -1,6 +1,6 @@
 import React from 'react';
 
-export const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
+export const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
     const [activeType, setActiveType] = React.useState(0);
     const [activeSize, setActiveSize] = React.useState(0);
 
@@ -11,8 +11,9 @@ export const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
             <h4 className="pizza-block__title">{title}</h4>
             <div className="pizza-block__selector">
                 <ul>
-                    {types.map((typeId) => (
+                    {types.map((typeId, index) => (
                         <li
+                            key={index}
                             onClick={() => {
                                 setActiveType(typeId);
                             }}
@@ -24,6 +25,7 @@ export const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
                 <ul>
                     {sizes.map((size, index) => (
                         <li
+                            key={index}
                             onClick={() => {
                                 setActiveSize(index);
                             }}
@@ -35,7 +37,7 @@ export const PizzaBlock = ({ title, price, imageUrl, sizes, types }) => {
             </div>
             <div className="pizza-block__bottom">
                 <div className="pizza-block__price">от {price} ₽</div>
-                <button onClick={0} className="button button--outline button--add">
+                <button onClick={() => 0} className="button button--outline button--add">
                     <svg
                         width="12"
                         height="12"

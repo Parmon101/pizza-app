@@ -14,6 +14,7 @@ export const Categories = () => {
             <ul>
                 {categories.map((title, index) => (
                     <li
+                        key={index}
                         onClick={() => {
                             onClickActive(index);
                         }}
