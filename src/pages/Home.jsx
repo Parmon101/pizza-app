@@ -1,4 +1,7 @@
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { setCategoryId } from '../redux/slices/filterSlice';
 import { SearchContext } from '../App';
 import { Categories } from '../components/Categories/Categories';
 import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
@@ -6,20 +9,23 @@ import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import { Sort } from '../components/Sort/Sort';
 
 export const Home = () => {
+    const dispatch = useDispatch();
+    const categoryId = useSelector((state) => state.filter.categoryId);
+    const sortType = useSelector((state) => state.filter.sort.sortProperty);
+
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
-    const [categoryId, setCategoryId] = React.useState(0);
-    const [sortType, setSortType] = React.useState({
-        name: 'популярности',
-        sortProperty: 'rating',
-    });
-    const { searchValue, setSearchValue } = React.useContext(SearchContext);
+    const { searchValue } = React.useContext(SearchContext);
+
+    const onClickCategory = (id) => {
+        dispatch(setCategoryId(id));
+    };
 
     React.useEffect(() => {
         setIsLoading(true);
 
-        const sortBy = sortType.sortProperty.replace('-', '');
-        const order = sortType.sortProperty.includes('-') ? 'asc' : 'desc';
+        const sortBy = sortType.replace('-', '');
+        const order = sortType.includes('-') ? 'asc' : 'desc';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
 
         fetch(
@@ -59,8 +65,8 @@ export const Home = () => {
     return (
         <div className="container">
             <div className="content__top">
-                <Categories value={categoryId} onClickCategory={(i) => setCategoryId(i)} />
-                <Sort value={sortType} onClickSort={(i) => setSortType(i)} />
+                <Categories value={categoryId} onClickCategory={onClickCategory} />
+                <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
             <div className="content__items">{isLoading ? skeletons : pizzas}</div>
