@@ -1,10 +1,11 @@
 import React from 'react';
+import { SearchContext } from '../App';
 import { Categories } from '../components/Categories/Categories';
 import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
 import { Sort } from '../components/Sort/Sort';
 
-export const Home = ({ searchValue }) => {
+export const Home = () => {
     const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const [categoryId, setCategoryId] = React.useState(0);
@@ -12,6 +13,7 @@ export const Home = ({ searchValue }) => {
         name: 'популярности',
         sortProperty: 'rating',
     });
+    const { searchValue, setSearchValue } = React.useContext(SearchContext);
 
     React.useEffect(() => {
         setIsLoading(true);
