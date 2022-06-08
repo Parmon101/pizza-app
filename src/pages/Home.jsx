@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { setCategoryId } from '../redux/slices/filterSlice';
@@ -28,14 +29,12 @@ export const Home = () => {
         const order = sortType.includes('-') ? 'asc' : 'desc';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
 
-        fetch(
-            `https://62921194cd0c91932b6ccbee.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
-        )
+        axios
+            .get(
+                `https://62921194cd0c91932b6ccbee.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
+            )
             .then((res) => {
-                return res.json();
-            })
-            .then((json) => {
-                setItems(json);
+                setItems(res.data);
                 setIsLoading(false);
             });
     }, [categoryId, sortType]);
