@@ -1,16 +1,16 @@
 import React from 'react';
 
-export const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
+export const ProductBlock = ({ title, price, imageUrl, sizes, types, id }) => {
     const [activeType, setActiveType] = React.useState(0);
     const [activeSize, setActiveSize] = React.useState(0);
 
-    const typePizza = ['тонкое', 'традиционное'];
+    const typeProduct = ['шар', 'рожок'];
     return (
         <div className="content_items_wrapper">
-            <div className="pizza-block">
-                <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
-                <h4 className="pizza-block__title">{title}</h4>
-                <div className="pizza-block__selector">
+            <div className="product-block">
+                <img className="product-block__image" src={imageUrl} alt="product" />
+                <h4 className="product-block__title">{title}</h4>
+                <div className="product-block__selector">
                     <ul>
                         {types.map((typeId, index) => (
                             <li
@@ -19,7 +19,7 @@ export const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
                                     setActiveType(typeId);
                                 }}
                                 className={activeType === typeId ? 'active' : ''}>
-                                {typePizza[typeId]}
+                                {typeProduct[typeId]}
                             </li>
                         ))}
                     </ul>
@@ -31,13 +31,13 @@ export const PizzaBlock = ({ title, price, imageUrl, sizes, types, id }) => {
                                     setActiveSize(index);
                                 }}
                                 className={activeSize === index ? 'active' : ''}>
-                                {size} см.
+                                {size} гр.
                             </li>
                         ))}
                     </ul>
                 </div>
-                <div className="pizza-block__bottom">
-                    <div className="pizza-block__price">от {price} ₽</div>
+                <div className="product-block__bottom">
+                    <div className="product-block__price">от {price} ₽</div>
                     <button onClick={() => 0} className="button button--outline button--add">
                         <svg
                             width="12"

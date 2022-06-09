@@ -74,14 +74,14 @@ export const Cart = () => {
                     <div class="cart__item">
                         <div class="cart__item-img">
                             <img
-                                class="pizza-block__image"
-                                src="https://dodopizza-a.akamaihd.net/static/Img/Products/Pizza/ru-RU/b750f576-4a83-48e6-a283-5a8efb68c35d.jpg"
-                                alt="Pizza"
+                                class="product-block__image"
+                                src="http://www.iceberry.ru/upload/iblock/19c/19cdb8a906b60fa4ed8e0c4b65373606.png"
+                                alt="Product"
                             />
                         </div>
                         <div class="cart__item-info">
-                            <h3>Сырный цыпленок</h3>
-                            <p>тонкое тесто, 26 см.</p>
+                            <h3>Клубника</h3>
+                            <p>рожок, 50 гр.</p>
                         </div>
                         <div class="cart__item-count">
                             <div class="button button--outline button--circle cart__item-count-minus">
@@ -142,7 +142,7 @@ export const Cart = () => {
                     <div class="cart__bottom-details">
                         <span>
                             {' '}
-                            Всего пицц: <b>3 шт.</b>{' '}
+                            Всего: <b>3 шт.</b>{' '}
                         </span>
                         <span>
                             {' '}

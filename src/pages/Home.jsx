@@ -6,8 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCategoryId, setFilters } from '../redux/slices/filterSlice';
 import { SearchContext } from '../App';
 import { Categories } from '../components/Categories/Categories';
-import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
-import { Skeleton } from '../components/PizzaBlock/Skeleton';
+import { ProductBlock } from '../components/ProductBlock/ProductBlock';
+import { Skeleton } from '../components/ProductBlock/Skeleton';
 import { Sort, sortList } from '../components/Sort/Sort';
 import { useNavigate } from 'react-router-dom';
 
@@ -37,7 +37,7 @@ export const Home = () => {
 
         axios
             .get(
-                `https://62921194cd0c91932b6ccbee.mockapi.io/items?${category}&sortBy=${sortBy}&order=${order}`,
+                `https://62921194cd0c91932b6ccbee.mockapi.io/moroz?${category}&sortBy=${sortBy}&order=${order}`,
             )
             .then((res) => {
                 setItems(res.data);
@@ -45,6 +45,7 @@ export const Home = () => {
             });
     };
 
+    // if change params and first render,если сначала выполнить рендеринг, затем проверить URL-параметры и сохранить в redux
     React.useEffect(() => {
         if (isMount.current) {
             const queryString = qs.stringify({
@@ -57,7 +58,7 @@ export const Home = () => {
         isMount.current = true;
     }, [categoryId, sortType]);
 
-    // if first render, then check URL-params, and save in redux
+    // if was first render, then check URL-params, and save in redux
     React.useEffect(() => {
         if (window.location.search) {
             const params = qs.parse(window.location.search.substring(1));
@@ -74,6 +75,7 @@ export const Home = () => {
         }
     }, []);
 
+    // if was first render, then  get menu
     React.useEffect(() => {
         window.scroll(0, 0);
 
@@ -92,7 +94,7 @@ export const Home = () => {
             return false;
         })
         .map((el) => (
-            <PizzaBlock
+            <ProductBlock
                 title={el.title}
                 price={el.price}
                 imageUrl={el.imageUrl}
