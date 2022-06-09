@@ -1,16 +1,22 @@
 import React from 'react';
 import axios from 'axios';
+import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setCategoryId } from '../redux/slices/filterSlice';
+import { setCategoryId, setFilters } from '../redux/slices/filterSlice';
 import { SearchContext } from '../App';
 import { Categories } from '../components/Categories/Categories';
 import { PizzaBlock } from '../components/PizzaBlock/PizzaBlock';
 import { Skeleton } from '../components/PizzaBlock/Skeleton';
-import { Sort } from '../components/Sort/Sort';
+import { Sort, sortList } from '../components/Sort/Sort';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+    const isSearch = React.useRef(false);
+    const isMount = React.useRef(false);
+
     const categoryId = useSelector((state) => state.filter.categoryId);
     const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
@@ -22,7 +28,7 @@ export const Home = () => {
         dispatch(setCategoryId(id));
     };
 
-    React.useEffect(() => {
+    const fetchMenu = () => {
         setIsLoading(true);
 
         const sortBy = sortType.replace('-', '');
@@ -37,6 +43,45 @@ export const Home = () => {
                 setItems(res.data);
                 setIsLoading(false);
             });
+    };
+
+    React.useEffect(() => {
+        if (isMount.current) {
+            const queryString = qs.stringify({
+                sortProperty: sortType,
+                categoryId,
+            });
+
+            navigate(`?${queryString}`);
+        }
+        isMount.current = true;
+    }, [categoryId, sortType]);
+
+    // if first render, then check URL-params, and save in redux
+    React.useEffect(() => {
+        if (window.location.search) {
+            const params = qs.parse(window.location.search.substring(1));
+
+            const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+
+            dispatch(
+                setFilters({
+                    ...params,
+                    sort,
+                }),
+            );
+            isSearch.current = true;
+        }
+    }, []);
+
+    React.useEffect(() => {
+        window.scroll(0, 0);
+
+        if (!isSearch.current) {
+            fetchMenu();
+        }
+
+        isSearch.current = false;
     }, [categoryId, sortType]);
 
     const pizzas = items
