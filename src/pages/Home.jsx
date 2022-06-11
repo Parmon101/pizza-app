@@ -93,18 +93,7 @@ export const Home = () => {
             }
             return false;
         })
-        .map((el) => (
-            <ProductBlock
-                title={el.title}
-                price={el.price}
-                imageUrl={el.imageUrl}
-                types={el.types}
-                sizes={el.sizes}
-                category={el.category}
-                rating={el.rating}
-                key={el.id}
-            />
-        ));
+        .map((el) => <ProductBlock key={el.id} {...el} />);
 
     const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
