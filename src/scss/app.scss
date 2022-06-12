@@ -145,7 +145,6 @@ body {
             width: 10%;
 
             img {
-                width: 80px;
                 height: 80px;
             }
         }
@@ -299,12 +298,13 @@ body {
     }
 
     &--empty {
-        margin: 0 auto;
+        margin: 60px auto;
         width: 560px;
         text-align: center;
 
         h2 {
-            font-size: 32px;
+            font-size: 38px;
+
             margin-bottom: 10px;
         }
 
