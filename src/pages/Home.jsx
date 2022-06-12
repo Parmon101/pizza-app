@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import qs from 'qs';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -10,6 +9,7 @@ import { ProductBlock } from '../components/ProductBlock/ProductBlock';
 import { Skeleton } from '../components/ProductBlock/Skeleton';
 import { Sort, sortList } from '../components/Sort/Sort';
 import { useNavigate } from 'react-router-dom';
+import { fetchProduct } from '../redux/slices/productSlice';
 
 export const Home = () => {
     const navigate = useNavigate();
@@ -17,10 +17,11 @@ export const Home = () => {
     const isSearch = React.useRef(false);
     const isMount = React.useRef(false);
 
+    const { items, status } = useSelector((state) => state.product);
+
     const categoryId = useSelector((state) => state.filter.categoryId);
     const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
-    const [items, setItems] = React.useState([]);
     const [isLoading, setIsLoading] = React.useState(true);
     const { searchValue } = React.useContext(SearchContext);
 
@@ -28,21 +29,14 @@ export const Home = () => {
         dispatch(setCategoryId(id));
     };
 
-    const fetchMenu = () => {
+    const fetchMenu = async () => {
         setIsLoading(true);
 
         const sortBy = sortType.replace('-', '');
         const order = sortType.includes('-') ? 'asc' : 'desc';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
 
-        axios
-            .get(
-                `https://62921194cd0c91932b6ccbee.mockapi.io/moroz?${category}&sortBy=${sortBy}&order=${order}`,
-            )
-            .then((res) => {
-                setItems(res.data);
-                setIsLoading(false);
-            });
+        dispatch(fetchProduct({ sortBy, order, category }));
     };
 
     // if change params and first render,если сначала выполнить рендеринг, затем проверить URL-параметры и сохранить в redux
@@ -86,7 +80,7 @@ export const Home = () => {
         isSearch.current = false;
     }, [categoryId, sortType]);
 
-    const pizzas = items
+    const product = items
         .filter((obj) => {
             if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
                 return true;
@@ -104,7 +98,14 @@ export const Home = () => {
                 <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">{isLoading ? skeletons : pizzas}</div>
+            {status === 'error' ? (
+                <div className="content__error-info">
+                    <h2>Ошибка запроса</h2>
+                    <p>попробуйте позже</p>
+                </div>
+            ) : (
+                <div className="content__items">{status === 'loading' ? skeletons : product}</div>
+            )}
         </div>
     );
 };
