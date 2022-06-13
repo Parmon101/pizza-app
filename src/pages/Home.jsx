@@ -22,7 +22,6 @@ export const Home = () => {
     const categoryId = useSelector((state) => state.filter.categoryId);
     const sortType = useSelector((state) => state.filter.sort.sortProperty);
 
-    const [isLoading, setIsLoading] = React.useState(true);
     const { searchValue } = React.useContext(SearchContext);
 
     const onClickCategory = (id) => {
@@ -30,8 +29,6 @@ export const Home = () => {
     };
 
     const fetchMenu = async () => {
-        setIsLoading(true);
-
         const sortBy = sortType.replace('-', '');
         const order = sortType.includes('-') ? 'asc' : 'desc';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
