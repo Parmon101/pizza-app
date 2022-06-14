@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
 
 const typeProduct = ['шар', 'рожок'];
@@ -27,8 +28,10 @@ export const ProductBlock = ({ id, title, price, imageUrl, sizes, types }) => {
     return (
         <div className="content_items_wrapper">
             <div className="product-block">
-                <img className="product-block__image" src={imageUrl} alt="product" />
-                <h4 className="product-block__title">{title}</h4>
+                <Link to={`/product/${id}`}>
+                    <img className="product-block__image" src={imageUrl} alt="product" />
+                    <h4 className="product-block__title">{title}</h4>
+                </Link>
                 <div className="product-block__selector">
                     <ul>
                         {types.map((typeId, index) => (
