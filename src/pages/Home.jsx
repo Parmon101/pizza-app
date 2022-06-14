@@ -21,8 +21,7 @@ export const Home = () => {
 
     const categoryId = useSelector((state) => state.filter.categoryId);
     const sortType = useSelector((state) => state.filter.sort.sortProperty);
-
-    const { searchValue } = React.useContext(SearchContext);
+    const searchValue = useSelector((state) => state.filter.searchValue);
 
     const onClickCategory = (id) => {
         dispatch(setCategoryId(id));

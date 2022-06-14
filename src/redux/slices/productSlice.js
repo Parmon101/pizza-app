@@ -1,17 +1,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchProduct = createAsyncThunk('product/fetchByIdStatus', async (params) => {
-    const { sortBy, order, category } = params;
-    const res = await axios.get(
-        `https://62921194cd0c91932b6ccbee.mockapi.io/moroz?${category}&sortBy=${sortBy}&order=${order}`,
-    );
-    return res.data;
-});
+export const fetchProduct = createAsyncThunk(
+    'product/fetchByIdStatus',
+    async (params, thunkAPI) => {
+        const { sortBy, order, category } = params;
+        const res = await axios.get(
+            `https://62921194cd0c91932b6ccbee.mockapi.io/moroz?${category}&sortBy=${sortBy}&order=${order}`,
+        );
+
+        return res.data;
+    },
+);
 
 const initialState = {
     items: [],
-    status: '',
+    status: 'loading',
 };
 
 const productSlice = createSlice({

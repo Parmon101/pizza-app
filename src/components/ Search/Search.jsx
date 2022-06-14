@@ -1,23 +1,24 @@
 import React from 'react';
-import { SearchContext } from '../../App';
 import debounce from 'lodash.debounce';
 
 import styles from './search.module.scss';
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from '../../redux/slices/filterSlice';
 
 export const Search = () => {
+    const dispatch = useDispatch();
     const [value, setValue] = React.useState('');
-    const { searchValue, setSearchValue } = React.useContext(SearchContext);
     const inputRef = React.useRef();
 
     const onClickClear = () => {
-        setSearchValue('');
+        dispatch(setSearchValue(''));
         setValue('');
         inputRef.current.focus();
     };
 
     const updateSearchValue = React.useCallback(
         debounce((str) => {
-            setSearchValue(str);
+            dispatch(setSearchValue(str));
         }, 250),
         [],
     );
@@ -65,7 +66,7 @@ export const Search = () => {
                 onChange={onChangeInput}
                 className={styles.input}
                 placeholder="Поиск по названию..."></input>
-            {searchValue && (
+            {value && (
                 <svg
                     className={styles.clearIcon}
                     onClick={onClickClear}
