@@ -1,13 +1,21 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import cart from '../../assets/cart.svg';
 import { Search } from '../ Search/Search';
 
-export const Header = () => {
-    const { totalPrice, items } = useSelector((state) => state.cart);
+type CartType = {
+    cart: {
+        totalPrice: number;
+        items: [];
+    };
+};
 
-    const totalCout = items.reduce((sum, item) => sum + item.count, 0);
+export const Header: React.FC = () => {
+    const { totalPrice, items } = useSelector((state: CartType) => state.cart);
+
+    const totalCout = items.reduce((sum: number, item: any) => sum + item.count, 0);
 
     return (
         <div className="header">

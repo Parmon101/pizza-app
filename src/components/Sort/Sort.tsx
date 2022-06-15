@@ -2,7 +2,25 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSort } from '../../redux/slices/filterSlice';
 
-export const sortList = [
+type SortList = {
+    name: string;
+    sortProperty: string;
+};
+
+type FilterType = {
+    filter: {
+        sort: {
+            name: string;
+            sortProperty: string;
+        };
+    };
+};
+
+type ClickType = MouseEvent & {
+    path: Node[];
+};
+
+export const sortList: SortList[] = [
     { name: 'популярности (убывание)', sortProperty: 'rating' },
     { name: 'популярности (увеличение)', sortProperty: '-rating' },
     { name: 'цене (убывание)', sortProperty: 'price' },
@@ -13,18 +31,20 @@ export const sortList = [
 
 export const Sort = () => {
     const dispatch = useDispatch();
-    const sort = useSelector((state) => state.filter.sort);
-    const sortRef = React.useRef();
+    const sort = useSelector((state: FilterType) => state.filter.sort);
+    const sortRef = React.useRef<HTMLDivElement>(null);
     const [open, setOpen] = React.useState(false);
 
-    const onClickListItem = (obj) => {
+    const onClickListItem = (obj: SortList) => {
         dispatch(setSort(obj));
         setOpen(false);
     };
 
     React.useEffect(() => {
-        const hadleClickOutside = (event) => {
-            if (!event.path.includes(sortRef.current)) {
+        const hadleClickOutside = (event: MouseEvent) => {
+            const _event = event as ClickType;
+
+            if (sortRef.current && !_event.path.includes(sortRef.current)) {
                 setOpen(false);
             }
         };
@@ -57,9 +77,7 @@ export const Sort = () => {
                             <li
                                 key={index}
                                 onClick={() => onClickListItem(obj)}
-                                className={
-                                    sort.sortProperty === index.sortProperty ? 'active' : ''
-                                }>
+                                className={sort.sortProperty === obj.sortProperty ? 'active' : ''}>
                                 {obj.name}
                             </li>
                         ))}

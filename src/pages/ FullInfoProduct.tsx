@@ -2,8 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
 
-export const FullInfoProduct = () => {
-    const [currectProduct, setCurrectProduct] = React.useState();
+type CurrectProduct = {
+    imageUrl: string;
+    title: string;
+    price: number;
+};
+
+export const FullInfoProduct: React.FC = () => {
+    const [currectProduct, setCurrectProduct] = React.useState<CurrectProduct>();
     const { id } = useParams();
     const navigate = useNavigate();
 

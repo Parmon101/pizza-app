@@ -5,7 +5,23 @@ import { addItem, selectCartItemById } from '../../redux/slices/cartSlice';
 
 const typeProduct = ['шар', 'рожок'];
 
-export const ProductBlock = ({ id, title, price, imageUrl, sizes, types }) => {
+type ProductBlockType = {
+    id: string;
+    title: string;
+    price: number;
+    imageUrl: string;
+    sizes: number[];
+    types: number[];
+};
+
+export const ProductBlock: React.FC<ProductBlockType> = ({
+    id,
+    title,
+    price,
+    imageUrl,
+    sizes,
+    types,
+}) => {
     const dispatch = useDispatch();
     const cartItem = useSelector(selectCartItemById(id));
     const [activeType, setActiveType] = React.useState(0);
