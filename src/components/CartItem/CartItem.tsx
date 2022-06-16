@@ -27,7 +27,7 @@ export const CartItem: React.FC<CartItemType> = ({
         dispatch(
             addItem({
                 id,
-            }),
+            } as CartItemType),
         );
     };
 

@@ -36,6 +36,7 @@ export const Sort = () => {
     const [open, setOpen] = React.useState(false);
 
     const onClickListItem = (obj: SortList) => {
+        // @ts-ignore
         dispatch(setSort(obj));
         setOpen(false);
     };
