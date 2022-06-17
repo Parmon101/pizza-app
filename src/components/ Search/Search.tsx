@@ -1,7 +1,6 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
 
-import styles from './search.module.scss';
 import { useDispatch } from 'react-redux';
 import { setSearchValue } from '../../redux/slices/filterSlice';
 
@@ -28,9 +27,9 @@ export const Search: React.FC = () => {
         updateSearchValue(event.target.value);
     };
     return (
-        <div className={styles.root}>
+        <div className="search">
             <svg
-                className={styles.icon}
+                className="search__icon"
                 enableBackground="new 0 0 50 50"
                 height="50px"
                 id="Layer_1"
@@ -64,11 +63,11 @@ export const Search: React.FC = () => {
                 ref={inputRef}
                 value={value}
                 onChange={onChangeInput}
-                className={styles.input}
+                className="search__input"
                 placeholder="Поиск по названию..."></input>
             {value && (
                 <svg
-                    className={styles.clearIcon}
+                    className="search__clearIcon"
                     onClick={onClickClear}
                     height="48"
                     viewBox="0 0 48 48"

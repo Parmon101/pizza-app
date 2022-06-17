@@ -6,7 +6,7 @@
     margin-bottom: 65px;
     border: solid 10px white;
     padding: 5px;
-    border-radius: 35px;
+    border-radius: 30px;
 
     &__image {
         height: 220px;
@@ -19,7 +19,7 @@
         margin-bottom: 20px;
     }
     &:hover {
-        border: solid 10px pink;
+        border: solid 5px pink;
     }
 
     &__selector {

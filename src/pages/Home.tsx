@@ -38,9 +38,9 @@ export const Home: React.FC = () => {
     const sortType = useSelector((state: HomeType) => state.filter.sort.sortProperty);
     const searchValue = useSelector((state: HomeType) => state.filter.searchValue);
 
-    const onClickCategory = (id: number) => {
+    const onClickCategory = React.useCallback((id: number) => {
         dispatch(setCategoryId(id));
-    };
+    }, []);
 
     const fetchMenu = async () => {
         const sortBy = sortType.replace('-', '');
@@ -111,7 +111,7 @@ export const Home: React.FC = () => {
                 <Categories value={categoryId} onClickCategory={onClickCategory} />
                 <Sort />
             </div>
-            <h2 className="content__title">Все пиццы</h2>
+            <h2 className="content__title">Все виды</h2>
             {status === 'error' ? (
                 <div className="content__error-info">
                     <h2>Ошибка запроса</h2>

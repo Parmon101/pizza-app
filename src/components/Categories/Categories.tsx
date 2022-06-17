@@ -7,7 +7,7 @@ type CategoriesType = {
 
 const categories = ['все', 'Классичекие', 'Ягодное', 'Фруктовое', 'Особое', 'Без сахара'];
 
-export const Categories: React.FC<CategoriesType> = ({ value, onClickCategory }) => {
+export const Categories: React.FC<CategoriesType> = React.memo(({ value, onClickCategory }) => {
     return (
         <div className="categories">
             <ul>
@@ -24,4 +24,4 @@ export const Categories: React.FC<CategoriesType> = ({ value, onClickCategory })
             </ul>
         </div>
     );
-};
+});
