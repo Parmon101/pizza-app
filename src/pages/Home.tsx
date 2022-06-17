@@ -2,29 +2,17 @@ import React from 'react';
 import qs from 'qs';
 import { useSelector } from 'react-redux';
 
-import { FilterSliceState, setCategoryId, setFilters } from '../redux/slices/filterSlice';
-import { Categories } from '../components/Categories/Categories';
-import { ProductBlock } from '../components/ProductBlock/ProductBlock';
-import { Skeleton } from '../components/ProductBlock/Skeleton';
-import { Sort, sortList } from '../components/Sort/Sort';
+import { setCategoryId, setFilters } from '../redux/filter/filterSlice';
+import { Categories } from '../components/Categories';
+import { ProductBlock } from '../components/ProductBlock';
+import { Skeleton } from '../components/ProductBlock';
 import { useNavigate } from 'react-router-dom';
-import { fetchProduct, SearchProductParams } from '../redux/slices/productSlice';
+import { fetchProduct } from '../redux/product/productSlice';
 import { useAppDispatch } from '../redux/store';
-
-type HomeType = {
-    state: {};
-    filter: {
-        categoryId: number;
-        searchValue: string;
-        sort: {
-            sortProperty: string;
-        };
-    };
-    product: {
-        items: [{}];
-        status: string;
-    };
-};
+import { SearchProductParams } from '../redux/product/productType';
+import { HomeType } from './types/homeType';
+import { Sort } from '../components/Sort';
+import { sortList } from '../components/Sort/Sort';
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();

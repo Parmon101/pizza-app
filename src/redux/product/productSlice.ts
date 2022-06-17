@@ -1,13 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Product, SearchProductParams, Status } from './productType';
 
-export type SearchProductParams = {
-    search: string;
-    sortBy: string;
-    order: string;
-    category: string;
-};
-
+export interface ProductSliceState {
+    items: Product[];
+    status: Status;
+}
 export const fetchProduct = createAsyncThunk<Product[], SearchProductParams>(
     'product/fetchByIdStatus',
     async (params) => {
@@ -19,28 +17,6 @@ export const fetchProduct = createAsyncThunk<Product[], SearchProductParams>(
         return res.data;
     },
 );
-
-type Product = {
-    id: string;
-    title: string;
-    price: number;
-    imageUrl: string;
-    type: number;
-    size: number;
-    count: number;
-    rating: number;
-};
-
-export enum Status {
-    LOADING = 'loading',
-    SUCCESS = 'success',
-    ERROR = 'error',
-}
-
-interface ProductSliceState {
-    items: Product[];
-    status: Status;
-}
 
 const initialState: ProductSliceState = {
     items: [],

@@ -1,9 +1,5 @@
 import React from 'react';
-
-type CategoriesType = {
-    value: number;
-    onClickCategory: (index: number) => void;
-};
+import { CategoriesType } from './categoriesType';
 
 const categories = ['все', 'Классичекие', 'Ягодное', 'Фруктовое', 'Особое', 'Без сахара'];
 

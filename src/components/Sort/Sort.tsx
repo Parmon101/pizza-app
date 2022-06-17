@@ -1,24 +1,8 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSort, SortPropertyEnum } from '../../redux/slices/filterSlice';
-
-type SortList = {
-    name: string;
-    sortProperty: SortPropertyEnum;
-};
-
-type FilterType = {
-    filter: {
-        sort: {
-            name: string;
-            sortProperty: string;
-        };
-    };
-};
-
-type ClickType = MouseEvent & {
-    path: Node[];
-};
+import { setSort } from '../../redux/filter/filterSlice';
+import { SortPropertyEnum } from '../../redux/filter/filterType';
+import { ClickType, FilterType, SortList } from './sortType';
 
 export const sortList: SortList[] = [
     { name: 'популярности (убывание)', sortProperty: SortPropertyEnum.RATING_DESC },

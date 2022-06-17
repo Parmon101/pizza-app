@@ -1,12 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-
-type CurrectProduct = {
-    imageUrl: string;
-    title: string;
-    price: number;
-};
+import { CurrectProduct } from './types/fullInfoProductType';
 
 export const FullInfoProduct: React.FC = () => {
     const [currectProduct, setCurrectProduct] = React.useState<CurrectProduct>();

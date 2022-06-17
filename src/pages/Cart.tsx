@@ -1,16 +1,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { CartEmpty } from '../components/CartEmpty/CartEmpty';
-import { CartItem } from '../components/CartItem/CartItem';
-import { clearItem } from '../redux/slices/cartSlice';
-
-type CartType = {
-    cart: {
-        items: [];
-        totalPrice: number;
-    };
-};
+import { CartEmpty } from '../components/CartEmpty';
+import { CartItem } from '../components/CartItem';
+import { CartType } from '../components/Header/headerType';
+import { clearItem } from '../redux/cart/cartSlice';
 
 export const Cart: React.FC = () => {
     const dispatch = useDispatch();

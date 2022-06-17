@@ -3,14 +3,8 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/logo.svg';
 import cart from '../../assets/cart.svg';
-import { Search } from '../ Search/Search';
-
-type CartType = {
-    cart: {
-        totalPrice: number;
-        items: [];
-    };
-};
+import { CartType } from './headerType';
+import { Search } from '../ Search';
 
 export const Header: React.FC = () => {
     const { totalPrice, items } = useSelector((state: CartType) => state.cart);

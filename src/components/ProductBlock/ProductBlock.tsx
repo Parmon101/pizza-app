@@ -1,19 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { addItem, CartItem, selectCartItemById } from '../../redux/slices/cartSlice';
+import { addItem, selectCartItemById } from '../../redux/cart/cartSlice';
+import { CartItem } from '../../redux/cart/cartType';
+import { ProductBlockType } from './productBlockType';
 
 const typeProduct = ['шар', 'рожок'];
-
-type ProductBlockType = {
-    id: string;
-    title: string;
-    price: number;
-    imageUrl: string;
-    sizes: number[];
-    types: number[];
-    rating: number;
-};
 
 export const ProductBlock: React.FC<ProductBlockType> = React.memo(
     ({ id, title, price, imageUrl, sizes, types }) => {
