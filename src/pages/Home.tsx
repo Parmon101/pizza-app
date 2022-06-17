@@ -1,14 +1,15 @@
 import React from 'react';
 import qs from 'qs';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
-import { setCategoryId, setFilters } from '../redux/slices/filterSlice';
+import { FilterSliceState, setCategoryId, setFilters } from '../redux/slices/filterSlice';
 import { Categories } from '../components/Categories/Categories';
 import { ProductBlock } from '../components/ProductBlock/ProductBlock';
 import { Skeleton } from '../components/ProductBlock/Skeleton';
 import { Sort, sortList } from '../components/Sort/Sort';
 import { useNavigate } from 'react-router-dom';
-import { fetchProduct } from '../redux/slices/productSlice';
+import { fetchProduct, SearchProductParams } from '../redux/slices/productSlice';
+import { useAppDispatch } from '../redux/store';
 
 type HomeType = {
     state: {};
@@ -27,7 +28,7 @@ type HomeType = {
 
 export const Home: React.FC = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
     const isSearch = React.useRef(false);
     const isMount = React.useRef(false);
 
@@ -45,11 +46,9 @@ export const Home: React.FC = () => {
         const sortBy = sortType.replace('-', '');
         const order = sortType.includes('-') ? 'asc' : 'desc';
         const category = categoryId > 0 ? `category=${categoryId}` : '';
+        const search = searchValue ? `&search=${searchValue}` : '';
 
-        dispatch(
-            // @ts-ignore
-            fetchProduct({ sortBy, order, category }),
-        );
+        dispatch(fetchProduct({ sortBy, order, category, search }));
     };
 
     // if change params and first render,если сначала выполнить рендеринг, затем проверить URL-параметры и сохранить в redux
@@ -68,19 +67,20 @@ export const Home: React.FC = () => {
     // if was first render, then check URL-params, and save in redux
     React.useEffect(() => {
         if (window.location.search) {
-            const params = qs.parse(window.location.search.substring(1));
-
-            const sort = sortList.find((obj) => obj.sortProperty === params.sortProperty);
+            const params = qs.parse(
+                window.location.search.substring(1),
+            ) as unknown as SearchProductParams;
+            const sort = sortList.find((obj) => obj.sortProperty === params.sortBy);
 
             dispatch(
                 setFilters({
-                    ...params,
-                    // @ts-ignore
-                    sort,
+                    searchValue: params.search,
+                    categoryId: Number(params.category),
+                    sort: sort || sortList[0],
                 }),
             );
-            isSearch.current = true;
         }
+        isSearch.current = true;
     }, []);
 
     // if was first render, then  get menu

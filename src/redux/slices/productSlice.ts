@@ -1,7 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-export const fetchProduct = createAsyncThunk<Product[], Record<string, string>>(
+export type SearchProductParams = {
+    search: string;
+    sortBy: string;
+    order: string;
+    category: string;
+};
+
+export const fetchProduct = createAsyncThunk<Product[], SearchProductParams>(
     'product/fetchByIdStatus',
     async (params) => {
         const { sortBy, order, category } = params;

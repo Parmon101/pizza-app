@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSort } from '../../redux/slices/filterSlice';
+import { setSort, SortPropertyEnum } from '../../redux/slices/filterSlice';
 
 type SortList = {
     name: string;
-    sortProperty: string;
+    sortProperty: SortPropertyEnum;
 };
 
 type FilterType = {
@@ -21,12 +21,12 @@ type ClickType = MouseEvent & {
 };
 
 export const sortList: SortList[] = [
-    { name: 'популярности (убывание)', sortProperty: 'rating' },
-    { name: 'популярности (увеличение)', sortProperty: '-rating' },
-    { name: 'цене (убывание)', sortProperty: 'price' },
-    { name: 'цене (увеличение)', sortProperty: '-price' },
-    { name: 'алфавиту (убывание)', sortProperty: 'title' },
-    { name: 'алфавиту (увеличение)', sortProperty: '-title' },
+    { name: 'популярности (убывание)', sortProperty: SortPropertyEnum.RATING_DESC },
+    { name: 'популярности (увеличение)', sortProperty: SortPropertyEnum.RATING_ASC },
+    { name: 'цене (убывание)', sortProperty: SortPropertyEnum.PRICE_DESC },
+    { name: 'цене (увеличение)', sortProperty: SortPropertyEnum.PRICE_ASC },
+    { name: 'алфавиту (убывание)', sortProperty: SortPropertyEnum.TITLE_DESC },
+    { name: 'алфавиту (увеличение)', sortProperty: SortPropertyEnum.TITLE_ASC },
 ];
 
 export const Sort = () => {
@@ -36,7 +36,6 @@ export const Sort = () => {
     const [open, setOpen] = React.useState(false);
 
     const onClickListItem = (obj: SortList) => {
-        // @ts-ignore
         dispatch(setSort(obj));
         setOpen(false);
     };
