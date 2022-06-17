@@ -17,8 +17,6 @@ type ProductBlockType = {
 
 export const ProductBlock: React.FC<ProductBlockType> = React.memo(
     ({ id, title, price, imageUrl, sizes, types }) => {
-        console.log('render');
-
         const dispatch = useDispatch();
         const cartItem = useSelector(selectCartItemById(id));
         const [activeType, setActiveType] = React.useState(0);

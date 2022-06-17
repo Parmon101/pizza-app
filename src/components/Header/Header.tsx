@@ -14,8 +14,17 @@ type CartType = {
 
 export const Header: React.FC = () => {
     const { totalPrice, items } = useSelector((state: CartType) => state.cart);
-
     const totalCout = items.reduce((sum: number, item: any) => sum + item.count, 0);
+
+    const isMount = React.useRef(false);
+
+    React.useEffect(() => {
+        if (isMount.current) {
+            const json = JSON.stringify(items);
+            localStorage.setItem('cart', json);
+        }
+        isMount.current = true;
+    }, [items]);
 
     return (
         <div className="header">
