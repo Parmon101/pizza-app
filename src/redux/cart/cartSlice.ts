@@ -20,6 +20,26 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addItem(state, action: PayloadAction<CartItem>) {
+            const findItem = state.items.find(
+                (obj) =>
+                    obj.id === action.payload.id &&
+                    obj.size === action.payload.size &&
+                    obj.type === action.payload.type &&
+                    obj.unikId === action.payload.unikId,
+            );
+
+            if (findItem) {
+                findItem.count++;
+            } else {
+                state.items.push({
+                    ...action.payload,
+                    count: 1,
+                });
+            }
+
+            state.totalPrice = calcTotalPrice(state.items);
+        },
+        addCount(state, action: PayloadAction<CartItem>) {
             const findItem = state.items.find((obj) => obj.id === action.payload.id);
 
             if (findItem) {
@@ -33,17 +53,24 @@ const cartSlice = createSlice({
 
             state.totalPrice = calcTotalPrice(state.items);
         },
-        minusItem(state, action: PayloadAction<string>) {
-            const findItem = state.items.find((obj) => obj.id === action.payload);
+        minusItem(state, action: PayloadAction<CartItem>) {
+            const findItem = state.items.find(
+                (obj) =>
+                    obj.id === action.payload.id &&
+                    obj.size === action.payload.size &&
+                    obj.type === action.payload.type,
+            );
             if (findItem) {
                 findItem.count--;
             }
             state.totalPrice = calcTotalPrice(state.items);
         },
-        removeItem(state, action: PayloadAction<string>) {
-            state.items = state.items.filter((obj) => obj.id !== action.payload);
+
+        removeItem(state, action: PayloadAction<CartItem>) {
+            state.items = state.items.filter((obj) => obj.unikId !== action.payload.unikId);
             state.totalPrice = calcTotalPrice(state.items);
         },
+
         clearItem(state, action) {
             state.items = [];
             state.totalPrice = 0;

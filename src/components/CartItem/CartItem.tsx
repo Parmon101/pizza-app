@@ -11,6 +11,7 @@ export const CartItem: React.FC<CartItemType> = ({
     price,
     count,
     imageUrl,
+    unikId,
 }) => {
     const dispatch = useDispatch();
 
@@ -18,17 +19,30 @@ export const CartItem: React.FC<CartItemType> = ({
         dispatch(
             addItem({
                 id,
+                size,
+                type,
+                unikId,
             } as CartItemType),
         );
     };
 
     const onClickMinus = () => {
-        dispatch(minusItem(id));
+        dispatch(
+            minusItem({
+                id,
+                size,
+                type,
+            } as CartItemType),
+        );
     };
 
     const onClickRemove = () => {
         if (window.confirm('Вы уверены что хотите удалить')) {
-            dispatch(removeItem(id));
+            dispatch(
+                removeItem({
+                    unikId,
+                } as CartItemType),
+            );
         }
     };
     return (

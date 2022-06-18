@@ -1,7 +1,7 @@
 export type ProductBlockType = {
     id: string;
     title: string;
-    price: number;
+    price: number[];
     imageUrl: string;
     sizes: number[];
     types: number[];

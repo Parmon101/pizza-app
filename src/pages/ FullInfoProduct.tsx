@@ -32,7 +32,7 @@ export const FullInfoProduct: React.FC = () => {
                 <img className="product-block__image" src={currectProduct.imageUrl} alt="" />
                 <h4 className="product-block__title">{currectProduct.title}</h4>
                 <p>Состав: нет данных</p>
-                <div className="product-block__price">цена: {currectProduct.price} ₽</div>
+                <div>Пищевая ценность: нет данных</div>
             </div>
         </div>
     );

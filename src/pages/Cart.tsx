@@ -97,7 +97,7 @@ export const Cart: React.FC = () => {
                 </div>
                 <div className="content__items">
                     {items.map((item: any) => (
-                        <CartItem key={item.id} {...item} />
+                        <CartItem key={`${item.id}${item.size}${item.type}`} {...item} />
                     ))}
                 </div>
                 <div className="cart__bottom">

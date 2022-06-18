@@ -6,4 +6,5 @@ export type CartItemType = {
     price: number;
     count: number;
     imageUrl: string;
+    unikId: string;
 };

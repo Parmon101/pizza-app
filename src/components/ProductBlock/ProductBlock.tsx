@@ -20,11 +20,12 @@ export const ProductBlock: React.FC<ProductBlockType> = React.memo(
             const item: CartItem = {
                 id,
                 title,
-                price,
+                price: price[activeSize],
                 imageUrl,
                 type: typeProduct[activeType],
                 size: sizes[activeSize],
                 count: 0,
+                unikId: `${id}${sizes[activeSize]}${typeProduct[activeType]}`,
             };
             dispatch(addItem(item));
         };
@@ -63,7 +64,7 @@ export const ProductBlock: React.FC<ProductBlockType> = React.memo(
                         </ul>
                     </div>
                     <div className="product-block__bottom">
-                        <div className="product-block__price">от {price} ₽</div>
+                        <div className="product-block__price">{price[activeSize]} ₽</div>
                         <button onClick={onClickAdd} className="button button--outline button--add">
                             <svg
                                 width="12"

@@ -6,4 +6,5 @@ export type CartItem = {
     type: string;
     size: number;
     count: number;
+    unikId: string;
 };
