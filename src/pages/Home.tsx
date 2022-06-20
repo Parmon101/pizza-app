@@ -33,8 +33,8 @@ export const Home: React.FC = () => {
     const fetchMenu = async () => {
         const sortBy = sortType.replace('-', '');
         const order = sortType.includes('-') ? 'asc' : 'desc';
-        const category = categoryId > 0 ? `category=${categoryId}` : '';
-        const search = searchValue ? `&search=${searchValue}` : '';
+        const category = categoryId > 0 ? String(categoryId) : '';
+        const search = searchValue;
 
         dispatch(fetchProduct({ sortBy, order, category, search }));
     };
@@ -68,7 +68,7 @@ export const Home: React.FC = () => {
                 }),
             );
         }
-        isSearch.current = true;
+        // isSearch.current = true;
     }, []);
 
     // if was first render, then  get menu

@@ -11,8 +11,8 @@ const initialState: FilterSliceState = {
     searchValue: '',
     categoryId: 0,
     sort: {
-        name: 'популярности',
-        sortProperty: SortPropertyEnum.PRICE_DESC,
+        name: 'алфавиту (увеличение)',
+        sortProperty: SortPropertyEnum.TITLE_ASC,
     },
 };
 

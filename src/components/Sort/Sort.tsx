@@ -5,12 +5,12 @@ import { SortPropertyEnum } from '../../redux/filter/filterType';
 import { ClickType, FilterType, SortList } from './sortType';
 
 export const sortList: SortList[] = [
-    { name: 'популярности (убывание)', sortProperty: SortPropertyEnum.RATING_DESC },
-    { name: 'популярности (увеличение)', sortProperty: SortPropertyEnum.RATING_ASC },
-    { name: 'цене (убывание)', sortProperty: SortPropertyEnum.PRICE_DESC },
-    { name: 'цене (увеличение)', sortProperty: SortPropertyEnum.PRICE_ASC },
-    { name: 'алфавиту (убывание)', sortProperty: SortPropertyEnum.TITLE_DESC },
     { name: 'алфавиту (увеличение)', sortProperty: SortPropertyEnum.TITLE_ASC },
+    { name: 'алфавиту (убывание)', sortProperty: SortPropertyEnum.TITLE_DESC },
+    { name: 'популярности (увеличение)', sortProperty: SortPropertyEnum.RATING_ASC },
+    { name: 'популярности (убывание)', sortProperty: SortPropertyEnum.RATING_DESC },
+    { name: 'цене (увеличение)', sortProperty: SortPropertyEnum.PRICE_ASC },
+    { name: 'цене (убывание)', sortProperty: SortPropertyEnum.PRICE_DESC },
 ];
 
 export const Sort = () => {
